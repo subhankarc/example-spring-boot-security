@@ -2,6 +2,8 @@ package eu.kielczewski.example.domain;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NaturalId;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -17,8 +19,10 @@ public class User {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-    @Column(name = "role", nullable = false)
-    @Enumerated(EnumType.STRING)
+    // @Column(name = "role", nullable = false)
+    // @Enumerated(EnumType.STRING)
+    @ManyToOne(optional = false)
+    @NaturalId
     private Role role;
 
     public Long getId() {
@@ -51,11 +55,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email.replaceFirst("@.*", "@***") +
-                ", passwordHash='" + passwordHash.substring(0, 10) +
-                ", role=" + role +
-                '}';
+        return "User{" + "id=" + id + ", email='" + email.replaceFirst("@.*", "@***") + ", passwordHash='"
+                + passwordHash.substring(0, 10) + ", role=" + role + '}';
     }
 }
